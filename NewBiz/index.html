@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>NewBiz Bootstrap Template</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="" name="keywords">
+  <meta content="" name="description">
+
+  <!-- Favicons -->
+  <link href="img/favicon.png" rel="icon">
+  <link href="img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Montserrat:300,400,500,700" rel="stylesheet">
+
+  <!-- Bootstrap CSS File -->
+  <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Libraries CSS Files -->
+  <link href="lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link href="lib/animate/animate.min.css" rel="stylesheet">
+  <link href="lib/ionicons/css/ionicons.min.css" rel="stylesheet">
+  <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+  <link href="lib/lightbox/css/lightbox.min.css" rel="stylesheet">
+
+  <!-- Main Stylesheet File -->
+  <link href="css/style.css" rel="stylesheet">
+  
+
+  <!-- product data -->
+  <script type="text/javascript">
+
+		var data = { 
+		'product1':{'name':'ببسي كبير ', 'price':250, 'img':'img/p1.jpeg'},
+		'product2':{'name':'ربع دجاج فحم', 'price':600, 'img':'img/p2.jpeg'},
+		'product3':{'name':'شاورما', 'price':400, 'img':'img/p3.jpeg'},
+		'product4':{'name':'برقر لحم', 'price':1200, 'img':'img/p1.jpeg'},
+		'product5':{'name':'شطائر البرقر كاملة الدسم ','price':1700, 'img':'img/p1.jpeg'},
+ };
+// end product data
+
+
+		function load_product(){
+
+			for(var key in data){
+					// JSON Product render on load page...
+					var product = document.createElement("div");
+					product.id = key;
+          product.setAttribute("class","card col-xs-1");
+          product.setAttribute("style","width: 14rem; margin: 5px;");
+
+					// Img
+					var url = document.createElement("img");
+          url.setAttribute("class","card-img-top");
+					url.src = data[key]['img'];
+					product.appendChild(url);
+
+					// var car_body = document.createElement("div");
+          // car_body.setAttribute("class","card-body");
+
+            // Name
+            var name = document.createElement("div");
+            name.id = key+"_name";
+            name.setAttribute("class","card-text text-center");
+            name.innerHTML = data[key]['name'];
+            product.appendChild(name);
+
+
+            // Price
+            var price = document.createElement("span");
+            price.id = key+"_price";
+            price.setAttribute("class","text-center");
+            price.innerHTML = data[key]['price'];
+            product.appendChild(price);
+
+            var currency = document.createElement("span");
+            currency.setAttribute("class","text-center");
+            currency.innerHTML = " ريال يمني ";
+            product.appendChild(currency);
+
+
+
+            // Button Add to cart
+            var btn = document.createElement("button");
+            btn.setAttribute("class","btn btn-primary");
+            btn.innerHTML = "إضافة الى السلة";
+            btn.setAttribute("onclick","return addCart(this);");
+            product.appendChild(btn);
+
+          // product.appendChild(car_body);
+
+					// main view add all json product to body view
+					var view = document.getElementById('view')
+					view.appendChild(product);
+			}	
+		}
+
+	function addCart(self){
+		var cart = document.getElementById('cart');
+		var p_name = self.parentNode.id+'_name';
+		var p_price = self.parentNode.id+'_price';
+		var name = document.getElementById(p_name).innerHTML;
+		var price = document.getElementById(p_price).innerHTML;
+
+		var lines = document.createElement("div");
+		var line_name = document.createElement("span");
+		line_name.innerHTML = name +"\t";
+		var line_price = document.createElement("b");
+		line_price.innerHTML = price ;
+		var line_input = document.createElement("input");
+    line_input.setAttribute("readonly","true");
+		line_input.value = 1;
+		line_input.size = 1;
+
+		lines.appendChild(line_name);
+		lines.appendChild(line_price);
+		lines.appendChild(line_input);
+
+		// Button decress
+		var decress = document.createElement("button");
+    decress.setAttribute("class","btn btn-outline-warning btn-sm");
+		decress.innerHTML = "-";
+		decress.setAttribute("onclick","if(this.parentNode.childNodes[2].value > 1){return this.parentNode.childNodes[2].value-- , calculate();}");
+		lines.appendChild(decress);
+
+		// Button incress
+		var incress = document.createElement("button");
+    incress.setAttribute("class","btn btn-outline-primary btn-sm");
+		incress.innerHTML = "+";
+		incress.setAttribute("onclick","return this.parentNode.childNodes[2].value++, calculate();");
+		lines.appendChild(incress);
+
+		// Delete Button
+		var delete_btn = document.createElement("button");
+		delete_btn.innerHTML = " حذف ";
+    delete_btn.setAttribute("class","btn btn-danger btn-sm");
+		delete_btn.setAttribute("onclick","this.parentNode.remove(), calculate();");
+		// delete_btn.setAttribute("onmouseover","return calculate();");
+		lines.appendChild(delete_btn);
+
+		cart.appendChild(lines);
+		calculate();
+	}
+
+	function calculate(){
+		var sum = 0;
+		var total = document.getElementById('cart');
+		for (var i = total.childNodes.length - 1; i >= 0; i--) {
+		var p = total.childNodes[i];
+		var child_name = p.childNodes[0].innerHTML;
+		var child_price = p.childNodes[1].innerHTML;
+		var child_input = p.childNodes[2].value;
+		sum += parseFloat(child_price * child_input);
+		document.getElementById('tot').innerHTML = " الإجمالي : "+sum+ " ريال ";
+		
+		}
+	}
+
+	function send_bill(){
+    var user_name = document.getElementById('user_name').value;
+    var user_address = document.getElementById('user_address').value;
+    var arr = [];
+		var sum = 0;
+		var total = document.getElementById('cart');
+		for (var i = total.childNodes.length - 1; i >= 0; i--) {
+		var p = total.childNodes[i];
+		var child_name = p.childNodes[0].innerHTML;
+		var child_price = p.childNodes[1].innerHTML;
+		var child_input = p.childNodes[2].value;
+		sum += parseFloat(child_price * child_input);
+		arr.unshift(child_name+" , السعر "+child_price+ "  عدد ( "+child_input+" ) %0a \n");
+    }
+		var url = "https://wa.me/+967773710567?text='*فودأونلاين *%0a%0a'" + arr + '%0a____________%0a Total : '+sum+" %0a الاسم : "+ user_name+" %0a العنوان : "+user_address;
+    alert(arr)
+    return window.open(url,'_blank','location=1');
+	}
+</script>
+
+
+</head>
+
+<body onload="load_product();">
+
+  <!--==========================
+  Header
+  ============================-->
+  <header id="header" class="fixed-top">
+    <div class="container">
+
+      <div class="logo float-left">
+        <!-- Uncomment below if you prefer to use an image logo -->
+        <h1 class="text-light"><a href="#header"><span>فودأونلاين</span></a></h1>
+        <!-- <a href="#intro" class="scrollto"><img src="img/foodonline.png" alt="" class="img-fluid"></a> -->
+      </div>
+
+      <nav class="main-nav float-right d-none d-lg-block">
+        <ul>
+          <li class="active"><a href="#intro">الرئيسية</a></li>
+          <li><a href="#clients">المطاعم</a></li>
+          <li><a href="#footer">تواصل معنا</a></li>
+        </ul>
+      </nav><!-- .main-nav -->
+      
+    </div>
+  </header><!-- #header -->
+
+  <!--==========================
+    home Section
+  ============================-->
+  <section id="intro" class="clearfix">
+    <div class="container">
+
+      <div class="intro-img">
+        <div id="carouselExampleControls" class="carousel slide  text-center w-100" data-ride="carousel">
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img class="d-block w-100" src="img/intro-img.svg" alt="First slide">
+              </div>
+              <div class="carousel-item">
+                <img class="d-block w-100" src="img/intro-img.svg" alt="Second slide">
+              </div>
+              <div class="carousel-item">
+                  <img class="d-block w-100" src="img/intro-img.svg" alt="Second slide">
+              </div>
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+            </a>
+          </div>
+      </div>
+
+      <div class="intro-info">
+        <h2>فود أونلاين<br><span>منصة</span><br>لطلب الوجبات اونلاين</h2>
+        <div>
+          <a href="#clients" class="btn-get-started scrollto">قائمة المطاعم</a>
+        </div>
+      </div>
+
+    </div>
+  </section><!-- #home -->
+
+  <main id="main">
+
+
+
+   <!--==========================
+      Resturants client Section
+    ============================-->
+    <section id="clients" class="section-bg">
+
+      <div class="container">
+
+        <div class="section-header">
+          <h3>المطاعم</h3>
+          <p><b>أطلب وجبتك الأن </b>,أستعرض قائمة الوجبات للمطاعم عبر الضغط على مطعمك المفضل.</p>
+        </div>
+
+        <div class="row no-gutters clients-wrap clearfix wow fadeInUp">
+
+          <div class="col-lg-3 col-md-4 col-xs-6" onclick="window.open('مذاقي.html#portfolio','_self')">
+            <div class="client-logo">
+              <img src="img/clients/client-1.png" class="img-fluid" alt="">
+            </div>
+            <div class="text-center"><h4>اسم المطعم</h4></div>
+          </div>
+          
+          <div class="col-lg-3 col-md-4 col-xs-6" onclick="window.open('resturant1.html#portfolio','_self')">
+            <div class="client-logo">
+              <img src="img/clients/client-2.png" class="img-fluid" alt="">
+            </div>
+            <div class="text-center"><h4>اسم المطعم</h4></div>          
+          </div>
+        
+          <div class="col-lg-3 col-md-4 col-xs-6" onclick="window.open('resturant1.html#portfolio','_self')">
+            <div class="client-logo">
+              <img src="img/clients/client-3.png" class="img-fluid" alt="">
+            </div>
+            <div class="text-center"><h4>اسم المطعم</h4></div>
+          </div>
+          
+          <div class="col-lg-3 col-md-4 col-xs-6" onclick="window.open('resturant1.html#portfolio','_self')">
+            <div class="client-logo">
+              <img src="img/clients/client-4.png" class="img-fluid" alt="">
+            </div>
+            <div class="text-center"><h4>اسم المطعم</h4></div>
+          </div>
+          
+          <div class="col-lg-3 col-md-4 col-xs-6" onclick="window.open('resturant1.html#portfolio','_self')">
+            <div class="client-logo">
+              <img src="img/clients/client-5.png" class="img-fluid" alt="">
+            </div>
+            <div class="text-center"><h4>اسم المطعم</h4></div>          
+          </div>
+        
+          <div class="col-lg-3 col-md-4 col-xs-6" onclick="window.open('resturant1.html#portfolio','_self')">
+            <div class="client-logo">
+              <img src="img/clients/client-6.png" class="img-fluid" alt="">
+            </div>
+            <div class="text-center"><h4>اسم المطعم</h4></div>
+          </div>
+          
+          <div class="col-lg-3 col-md-4 col-xs-6" onclick="window.open('resturant1.html#portfolio','_self')">
+            <div class="client-logo">
+              <img src="img/clients/client-7.png" class="img-fluid" alt="">
+            </div>
+            <div class="text-center"><h4>اسم المطعم</h4></div>
+          </div>
+          
+          <div class="col-lg-3 col-md-4 col-xs-6" onclick="window.open('resturant1.html#portfolio','_self')">
+            <div class="client-logo">
+              <img src="img/clients/client-8.png" class="img-fluid" alt="">
+            </div>
+            <div class="text-center"><h4>اسم المطعم</h4></div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!--==========================
+      Clients Section
+    ============================-->
+    <!-- <section id="testimonials" class="section-bg">
+      <div class="container">
+
+        <header class="section-header">
+          <h3>ماذا قالوا عنا؟</h3>
+        </header>
+
+        <div class="row justify-content-center">
+          <div class="col-lg-8">
+
+            <div class="owl-carousel testimonials-carousel wow fadeInUp">
+    
+              <div class="testimonial-item">
+                <img src="img/testimonial-1.jpg" class="testimonial-img" alt="">
+                <h3>Saul Goodman</h3>
+                <h4>Ceo &amp; Founder</h4>
+                <p>
+                  Proin iaculis purus consequat sem cure digni ssim donec porttitora entum suscipit rhoncus. Accusantium quam, ultricies eget id, aliquam eget nibh et. Maecen aliquam, risus at semper.
+                </p>
+              </div>
+    
+              <div class="testimonial-item">
+                <img src="img/testimonial-2.jpg" class="testimonial-img" alt="">
+                <h3>Sara Wilsson</h3>
+                <h4>Designer</h4>
+                <p>
+                  Export tempor illum tamen malis malis eram quae irure esse labore quem cillum quid cillum eram malis quorum velit fore eram velit sunt aliqua noster fugiat irure amet legam anim culpa.
+                </p>
+              </div>
+    
+              <div class="testimonial-item">
+                <img src="img/testimonial-3.jpg" class="testimonial-img" alt="">
+                <h3>Jena Karlis</h3>
+                <h4>Store Owner</h4>
+                <p>
+                  Enim nisi quem export duis labore cillum quae magna enim sint quorum nulla quem veniam duis minim tempor labore quem eram duis noster aute amet eram fore quis sint minim.
+                </p>
+              </div>
+    
+              <div class="testimonial-item">
+                <img src="img/testimonial-4.jpg" class="testimonial-img" alt="">
+                <h3>Matt Brandon</h3>
+                <h4>Freelancer</h4>
+                <p>
+                  Fugiat enim eram quae cillum dolore dolor amet nulla culpa multos export minim fugiat minim velit minim dolor enim duis veniam ipsum anim magna sunt elit fore quem dolore labore illum veniam.
+                </p>
+              </div>
+    
+              <div class="testimonial-item">
+                <img src="img/testimonial-5.jpg" class="testimonial-img" alt="">
+                <h3>John Larson</h3>
+                <h4>Entrepreneur</h4>
+                <p>
+                  Quis quorum aliqua sint quem legam fore sunt eram irure aliqua veniam tempor noster veniam enim culpa labore duis sunt culpa nulla illum cillum fugiat legam esse veniam culpa fore nisi cillum quid.
+                </p>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+
+
+      </div>
+    </section> -->
+    <!-- #testimonials -->
+
+ 
+  </main>
+
+  <!--==========================
+    Footer
+  ============================-->
+  <footer id="footer">
+    <div class="footer-top">
+      <div class="container">
+        <div class="row">
+
+          <div class="col-lg-4 col-md-6 footer-info">
+            <h3>فود كوم</h3>
+            <p>توفر منصة فود كوم خدمة طلب الطعام من المطاعم في مدينتك والتي توفر خدمة توصيل للمنازل, يمكنك من خلال الموقع استعراض قائمة الوجبات التي 
+              يقدمها المطعم واختيار الوجبات وإضافتها في السلة ثم بعد ذلك تأكيد الطلب وإرسال فاتورة الطلب الى المطعم عبر الضغط على زر
+              إرسال ,سيقوم الموقع بشكل تلقائي بنسخ فاتورة طلبك وإرسالها عبر الواتساب الى المطعم. 
+              <br><small>ملاحظة:موقع فود كوم لايتدخل في المعاملات المالية بين العميل و المطعم.</small>
+            </p>
+          </div>
+
+          <div class="col-lg-2 col-md-6 footer-links">
+            <h4>روابط مفيدة</h4>
+            <ul>
+              <li><a href="#">الرئيسية</a></li>
+              <li><a href="#clients">المطاعم</a></li>
+              <li><a href="" onclick="alert('1- يسمح للمطاعم الممستفيدة من خدماتنا بطلب تعديل قائمة الوجبات مرة في الشهر\n 2-موقع فود كوم غير مسؤول إطلاقا عن التعامل بين المطعم والعميل بأي شكل من الاشكال.\n 3-موقع فود كوم يوفر للعملاء خدمة ارسال طلبات الطعام لمطاعم العملاء المفضلة عبر رسائل تلقائية دون التدخل في عملية الدفع المالي.\n4-ننصح العملاء بأخذ الحيطة والحذر عند الدفع عبر الحوالات . \n 5-لن يكون على موقع فود كوم أي مسؤولية تجاه الأعضاء او اي طرف اخر بسبب إيقاف الخدمة او التوقف الكامل لتشغيل النظام.\n6-أستخدامك للخدمة التي يقدمها الموقع يدل على موافقتك بالشروط والأحكام أعلاة.');">الشروط والأحكام</a></li>
+          </div>
+
+          <div class="col-lg-3 col-md-6 footer-contact">
+            <h4>تواصل معنا</h4>
+            <p>
+              اليمن - حضرموت <br>
+              <strong>Phone:</strong> +967 773710567<br>
+              <strong>Email:</strong> yatajer.net@gmail.com<br>
+            </p>
+
+            <div class="social-links">
+              <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
+              <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
+              <a href="#" class="instagram"><i class="fa fa-instagram"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="copyright">
+         2021 جميع الحقوق محفوظة &copy; <strong>فود كوم</strong> 
+      </div>
+
+    </div>
+  </footer><!-- #footer -->
+
+  <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+  <!-- Uncomment below i you want to use a preloader -->
+  <!-- <div id="preloader"></div> -->
+
+  <!-- JavaScript Libraries -->
+  <script src="lib/jquery/jquery.min.js"></script>
+  <script src="lib/jquery/jquery-migrate.min.js"></script>
+  <script src="lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="lib/easing/easing.min.js"></script>
+  <script src="lib/mobile-nav/mobile-nav.js"></script>
+  <script src="lib/wow/wow.min.js"></script>
+  <script src="lib/waypoints/waypoints.min.js"></script>
+  <script src="lib/counterup/counterup.min.js"></script>
+  <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+  <script src="lib/isotope/isotope.pkgd.min.js"></script>
+  <script src="lib/lightbox/js/lightbox.min.js"></script>
+  <!-- Contact Form JavaScript File -->
+  <script src="contactform/contactform.js"></script>
+
+  <!-- Template Main Javascript File -->
+  <script src="js/main.js"></script>
+
+</body>
+</html>
