@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>NewBiz Bootstrap Template</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="" name="keywords">
+  <meta content="" name="description">
+
+  <!-- Favicons -->
+  <link href="../img/favicon.png" rel="icon">
+  <link href="../img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Montserrat:300,400,500,700" rel="stylesheet">
+
+  <!-- Bootstrap CSS File -->
+  <link href="../lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Libraries CSS Files -->
+  <link href="../lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link href="../lib/animate/animate.min.css" rel="stylesheet">
+  <link href="../lib/ionicons/css/ionicons.min.css" rel="stylesheet">
+  <link href="../lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+  <link href="../lib/lightbox/css/lightbox.min.css" rel="stylesheet">
+
+  <!-- Main Stylesheet File -->
+  <link href="../css/style.css" rel="stylesheet">
+  
+
+  <!-- product data -->
+
+</head>
+
+<body onload="load_product();">
+
+  <!--==========================
+  Header
+  ============================-->
+  <header id="header" class="fixed-top">
+    <div class="container">
+
+      <div class="logo float-left">
+        <!-- Uncomment below if you prefer to use an image logo -->
+        <h1 class="text-light"><a href="#header"><span>فودأونلاين</span></a></h1>
+        <!-- <a href="#intro" class="scrollto"><img src="img/logo.png" alt="" class="img-fluid"></a> -->
+      </div>
+
+      <nav class="main-nav float-right d-none d-lg-block">
+        <ul>
+          <li class="active"><a href="../index.html">الرئيسية</a></li>
+          <li><a href="#portfolio">الوجبات</a></li>
+          <li><a href="#order">سلة المشتريات</a></li>
+          <li><a href="#footer">تواصل معنا</a></li>
+        </ul>
+      </nav><!-- .main-nav -->
+      
+    </div>
+  </header><!-- #header -->
+
+  <!--==========================
+    Intro Section
+  ============================-->
+  <section id="intro" class="clearfix">
+    <div class="container">
+
+      <div class="intro-img">
+        <div id="carouselExampleControls" class="carousel slide  text-center w-100" data-ride="carousel">
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img class="d-block w-100" src="img/intro-img.svg" alt="First slide">
+              </div>
+              <div class="carousel-item">
+                <img class="d-block w-100" src="img/intro-img.svg" alt="Second slide">
+              </div>
+              <div class="carousel-item">
+                  <img class="d-block w-100" src="img/intro-img.svg" alt="Second slide">
+              </div>
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+            </a>
+          </div>
+      </div>
+
+      <div class="intro-info">
+        <h2>فود أونلاين<br><span>منصة</span><br>لطلب الوجبات اونلاين</h2>
+        <div>
+          <a href="#portfolio" class="btn-get-started scrollto">حول المطعم</a>
+          <a href="#order" class="btn-services scrollto">سلة المشتريات <i class="fa fa-shopping-basket"></i></a>
+        </div>
+      </div>
+
+    </div>
+  </section><!-- #intro -->
+
+  <main id="main">
+
+    <!--==========================
+      Food order menu Section
+    ============================-->
+    <!-- Company info -->
+    <section id="portfolio">
+      <div class="container row justify-content-center">
+        <div class="text-right col-6" dir="rtl">
+          <h4>مطعم مذاقي</h4>
+          <b>العنوان : </b>اليمن - حضرموت - المكلا - شارع الهايبر<br>
+          <b>هاتف : </b> 0123456  - 6543210 <br>
+          <ul><b>طرق الدفع المتاحة :</b>
+            <li>الدفع عند الاستلام.</li>
+            <li>حوالة مصرفية</li>
+          </ul>
+          <ul><b>الحسابات المصرفية : </b>
+            <li> رقم حساب العمقي \ 123456789 </li>
+            <li> رقم حساب الكريمي \ 123456789 </li>
+          </ul>
+        </div>
+        <div class="company_info text-left col-6">
+          <img src="../img/clients/client-1.png" style="width:200px;"/>
+        </div>
+      </div>
+      <!-- end company info -->
+
+<!-- food order menu -->
+        <header class="section-header">
+          <h3 class="section-title">قائمة الوجبات</h3>
+        </header>
+          <div class="container">
+            <div id="view" class="row"></div>
+          </div>
+    </section>
+
+    <!--==========================
+      Order Section
+    ============================-->
+    <section id="order">
+      <div class="container"  style="border-right: 12px solid #004a99">
+        <div class="section-header text-center">
+          <span class="h1"><i id="count" class="badge badge-warning"></i><i class="fa fa-shopping-basket"></i> سلة الطلبيات </span>
+        </div>
+          <!-- cart header -->
+          <div class="row text-right">
+              <div class="col-6"><b>اسم المنتج</b></div>
+              <div class="col-2"><b>السعر</b></div>
+              <div><b>الكمية</b></div>
+              <div> </div>
+              <div> </div>
+              <div> </div>
+          </div>
+
+        <div class="row section-body">
+
+          <div id="cart" width="100%"  class="col-12 text-right" style="border:2px solid #eee;"></div>
+          <div class="col-12 text-center" id="tot" style="margin:5px; font-weight: bold; font-size:larger;"></div>
+          <div class="col-12 text-center">
+            <form>
+              <input id="user_name" class="col-ms-10 col-sm-6 btn btn-outline-primary" size="34" placeholder="أكتب أسمك" style="margin: 3px;"/><br>
+              <input id="user_address" class="col-ms-10 col-sm-6 btn btn-outline-primary" size="34" placeholder="أكتب عنوان التوصيل"   style="margin: 3px;"/><br>
+              <input id="user_note" class="col-ms-10 col-sm-6 btn btn-outline-primary" size="34" placeholder=" أكتب ملاحظة : مثال (رقم الحوالة) .."  /><br>
+              <button type="submit" class="col-ms-10 col-sm-6 text-center btn btn-success btn-lg fa fa-whatsapp" style="margin: 3px;" onclick="send_bill();"> إرسال الطلب </button>
+          <p style="font-size: 11px; color: #999">قم بتحديد الكميات المطلوبة لكل وجبة ,وسجل اسمك(أختياري), وعنوان التوصيل في الخانات اسفل الفاتورة وتأكد من طريقة الدفع التي يدعمها المطعم, ثم أضغط على زر إرسال الطلب.</p>
+
+            </form>
+          </div>
+        <br>
+        <br>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!--==========================
+    Footer
+  ============================-->
+  <footer id="footer">
+    <div class="footer-top">
+      <div class="container">
+        <div class="row">
+
+          <div class="col-lg-4 col-md-6 footer-info">
+            <h3>فود كوم</h3>
+            <p>توفر منصة فود كوم خدمة طلب الطعام من المطاعم في مدينتك والتي توفر خدمة توصيل للمنازل, يمكنك من خلال الموقع استعراض قائمة الوجبات التي 
+              يقدمها المطعم واختيار الوجبات وإضافتها في السلة ثم بعد ذلك تأكيد الطلب وإرسال فاتورة الطلب الى المطعم عبر الضغط على زر
+              إرسال ,سيقوم الموقع بشكل تلقائي بنسخ فاتورة طلبك وإرسالها عبر الواتساب الى المطعم. 
+              <br><small>ملاحظة:موقع فود كوم لايتدخل في المعاملات المالية بين العميل و المطعم.</small>
+            </p>
+          </div>
+
+          <div class="col-lg-2 col-md-6 footer-links">
+            <h4>روابط مفيدة</h4>
+            <ul>
+                <li><a href="../index.html">الرئيسية</a></li>
+                <li><a href="#clients">المطاعم</a></li>
+              <li><a href="" onclick="alert('1- يسمح للمطاعم الممستفيدة من خدماتنا بطلب تعديل قائمة الوجبات مرة في الشهر\n 2-موقع فود كوم غير مسؤول إطلاقا عن التعامل بين المطعم والعميل بأي شكل من الاشكال.\n 3-موقع فود كوم يوفر للعملاء خدمة ارسال طلبات الطعام لمطاعم العملاء المفضلة عبر رسائل تلقائية دون التدخل في عملية الدفع المالي.\n4-ننصح العملاء بأخذ الحيطة والحذر عند الدفع عبر الحوالات . \n 5-لن يكون على موقع فود كوم أي مسؤولية تجاه الأعضاء او اي طرف اخر بسبب إيقاف الخدمة او التوقف الكامل لتشغيل النظام.\n6-أستخدامك للخدمة التي يقدمها الموقع يدل على موافقتك بالشروط والأحكام أعلاة.');">الشروط والأحكام</a></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-3 col-md-6 footer-contact">
+            <h4>تواصل معنا</h4>
+            <p>
+              اليمن - حضرموت <br>
+              <strong>Phone:</strong> +967 773710567<br>
+              <strong>Email:</strong> yatajer.net@gmail.com<br>
+            </p>
+
+            <div class="social-links">
+              <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
+              <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
+              <a href="#" class="instagram"><i class="fa fa-instagram"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="copyright">
+         2021 جميع الحقوق محفوظة &copy; <strong>فود كوم</strong> 
+      </div>
+
+    </div>
+  </footer><!-- #footer -->
+
+  <a href="#order" class="btn-services scrollto" style="position: fixed;
+  background: orangered;
+  color: #fff;
+  width: 44px;
+  height: 44px;
+  text-align: center;
+  line-height: 1;
+  font-size: 16px;
+  border-radius: 50%;
+  left: 30px;
+  bottom: 30px;
+  transition: background 0.5s;
+  z-index: 11;"><i style=" padding-top: 12px;
+  color: #fff;" class="fa fa-shopping-basket"></i></a>
+  <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+  <!-- <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a> -->
+  <!-- Uncomment below i you want to use a preloader -->
+  <!-- <div id="preloader"></div> -->
+
+  <!-- JavaScript Libraries -->
+  <script src="js/script.js"></script>
+  <script src="../lib/jquery/jquery.min.js"></script>
+  <script src="../lib/jquery/jquery-migrate.min.js"></script>
+  <script src="../lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../lib/easing/easing.min.js"></script>
+  <script src="../lib/mobile-nav/mobile-nav.js"></script>
+  <script src="../lib/wow/wow.min.js"></script>
+  <script src="../lib/waypoints/waypoints.min.js"></script>
+  <script src="../lib/counterup/counterup.min.js"></script>
+  <script src="../lib/owlcarousel/owl.carousel.min.js"></script>
+  <script src="../lib/isotope/isotope.pkgd.min.js"></script>
+  <script src="../lib/lightbox/js/lightbox.min.js"></script>
+  <!-- Contact Form JavaScript File -->
+  <script src="../contactform/contactform.js"></script>
+
+  <!-- Template Main Javascript File -->
+  <script src="../js/main.js"></script>
+
+</body>
+</html>
